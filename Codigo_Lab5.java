@@ -1,21 +1,21 @@
 import java.util.*;
 
-class BST<Key extends Comparable<Key>, Value> {
+class BST<Key extends Comparable<Key>, Value>{
     private Node root;
-    private class Node {
+    private class Node{
         Key key;
         Value val;
         Node left, right;
 
         Node(Key key, Value val) {
             this.key = key;
-            this.val = val;
-        }
+            this.val = val;}
     }
     public void put(Key key, Value val) {
         root = put(root, key, val);
     }
-    private Node put(Node x, Key key, Value val) {
+    
+    private Node put(Node x, Key key, Value val){
         if (x == null) return new Node(key, val);
         int cmp = key.compareTo(x.key);
         if (cmp < 0) x.left = put(x.left, key, val);
@@ -68,8 +68,7 @@ class BST<Key extends Comparable<Key>, Value> {
         int cmp = key.compareTo(x.key);
         if (cmp < 0) return get(x.left, key);
         else if (cmp > 0) return get(x.right, key);
-        else return x.val;
-    }
+        else return x.val;}
 
     public Iterable<Key> keys() {
         List<Key> keys = new ArrayList<>();
@@ -122,7 +121,7 @@ class HashST<Key, Value> {
         this(INIT_CAPACITY);
     }
 
-    public HashST(int capacity) {
+    public HashST(int capacity){
         st = new Node[capacity];
         n = 0;
     }
@@ -131,11 +130,10 @@ class HashST<Key, Value> {
         if (key == null) return;
         int i = hash(key);
 
-        for (Node x = st[i]; x != null; x = x.next) {
+        for (Node x = st[i]; x != null; x = x.next){
             if (key.equals(x.key)) {
                 x.val = val;
-                return;
-            }
+                return;}
         }
 
         st[i] = new Node(key, val, st[i]);
@@ -154,8 +152,7 @@ class HashST<Key, Value> {
     }
 
     public boolean contains(Key key) {
-        return get(key) != null;
-    }
+        return get(key) != null;}
     private int hash(Key key) {
         return Math.abs(key.hashCode()) % st.length;
     }
@@ -181,7 +178,7 @@ class Player implements Comparable<Player> {
         return total == 0 ? 0 : (double) wins / total;
     }
 
-    public String getPlayerName() { return playerName; }
+    public String getPlayerName() { return playerName;}
     public int getWins() { return wins; }
 
     public int compareTo(Player other) {
@@ -207,7 +204,7 @@ class Scoreboard {
         }
     }
 
-    public void addGameResult(String winner, String loser, boolean draw) {
+    public void addGameResult(String winner, String loser, boolean draw){
         playedGames++;
 
         Player p1 = players.get(winner);
@@ -229,11 +226,11 @@ class Scoreboard {
     }
 
     private void addToWinTree(Player p) {
-        int wins = p.getWins();
+        int wins =  p.getWins();
         List<String> list = winTree.get(wins);
 
         if (list == null) {
-            list = new ArrayList<>();
+            list  = new ArrayList<>();
             winTree.put(wins, list);
         }
 
@@ -244,7 +241,7 @@ class Scoreboard {
         int wins = p.getWins();
         List<String> list = winTree.get(wins);
 
-        if (list != null) {
+        if (list !=  null) {
             list.remove(p.getPlayerName());
             if (list.isEmpty()) winTree.delete(wins);
         }
@@ -252,13 +249,12 @@ class Scoreboard {
 }
 
 class ConnectFour {
-    private char[][] grid = new char[6][7]; // Tablero 6x7
-    private char currentSymbol = 'X'; // Turno actual (X o O)
+    private char[][] grid = new char[6][7]; 
+    private char currentSymbol = 'X'; 
     private boolean gameOver = false;
     private char winner = ' ';
 
     public ConnectFour() {
-        // Inicializa el tablero con espacios vacíos
         for (int fila = 0; fila < 6; fila++) {
             for (int col = 0; col < 7; col++) {
                 grid[fila][col] = ' ';
@@ -268,20 +264,18 @@ class ConnectFour {
 
     public boolean makeMove(int col) {
         if (col < 0 || col >= 7 || gameOver) {
-            return false;
-        }
+            return false;}
         for (int fila = 5; fila >= 0; fila--) {
             if (grid[fila][col] == ' ') {
                 grid[fila][col] = currentSymbol;
 
-                // Verifica si alguien ganó después de este movimiento
+                
                 if (checkWin(fila, col)) {
                     gameOver = true;
                     winner = currentSymbol;
                 } else if (isFull()) {
-                    gameOver = true; // Tablero lleno = empate
+                    gameOver = true; 
                 } else {
-                    // Cambia el turno
                     currentSymbol = (currentSymbol == 'X') ? 'O' : 'X';
                 }
                 return true;
@@ -319,7 +313,6 @@ class ConnectFour {
     private boolean checkWin(int fila, int col) {
         char simbolo = grid[fila][col];
 
-        // Verifica en todas las direcciones posibles
         boolean horizontal = countInDirection(fila, col, 0, 1, simbolo) + countInDirection(fila, col, 0, -1, simbolo) + 1 >= 4;
         boolean vertical = countInDirection(fila, col, 1, 0, simbolo) + countInDirection(fila, col, -1, 0, simbolo) + 1 >= 4;
         boolean diagonal1 = countInDirection(fila, col, 1, 1, simbolo) + countInDirection(fila, col, -1, -1, simbolo) + 1 >= 4;
@@ -339,8 +332,7 @@ class ConnectFour {
             c += deltaCol;
         }
 
-        return contador;
-    }
+        return contador;}
 
     private boolean isFull() {
         for (int col = 0; col < 7; col++) {
@@ -352,7 +344,7 @@ class ConnectFour {
     }
 }
 
-class Game {
+class Game{
     private String playerA, playerB;
     private ConnectFour cf = new ConnectFour();
     private Scanner sc = new Scanner(System.in);
@@ -393,12 +385,12 @@ class Game {
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc =  new Scanner(System.in);
 
-        System.out.print("Nombre Jugador 1 ");
+        System.out.print("Nombre Jugador 1: ");
         String p1 = sc.nextLine();
 
-        System.out.print("Nombre Jugador 2 ");
+        System.out.print("Nombre Jugador 2 :");
         String p2 = sc.nextLine();
         new Game(p1, p2).play();
     }
