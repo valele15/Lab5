@@ -160,6 +160,7 @@ class HashST<Key, Value> {
         return Math.abs(key.hashCode()) % st.length;
     }
 }
+
 class Player implements Comparable<Player> {
     private String playerName;
     private int wins, draws, losses;
@@ -183,17 +184,16 @@ class Player implements Comparable<Player> {
     public String getPlayerName() { return playerName; }
     public int getWins() { return wins; }
 
-    @Override
     public int compareTo(Player other) {
         return Integer.compare(this.wins, other.wins);
     }
 
-    @Override
     public String toString() {
         return playerName + " - Wins: " + wins + ", Draws: " + draws + ", Losses: " + losses +
                 ", Win rate: " + (winRate() * 100) + "%";
     }
 }
+
 class Scoreboard {
     private BST<Integer, List<String>> winTree = new BST<>();
     private HashST<String, Player> players = new HashST<>();
@@ -250,6 +250,7 @@ class Scoreboard {
         }
     }
 }
+
 class ConnectFour {
     private char[][] grid = new char[6][7]; // Tablero 6x7
     private char currentSymbol = 'X'; // Turno actual (X o O)
